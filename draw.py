@@ -63,7 +63,7 @@ cards = [
 
 FOOT_TOP = H - 160   # footer occupies FOOT_TOP .. H-40
 GAP = 10
-heights = [12 + 22 + 6 + 30 + len(wrap(c[3], 88)) * 23 + 2 + 24 + 10 for c in cards]
+heights = [12 + 22 + 6 + 30 + len(wrap(c[3], 88)) * 22 + 2 + 24 + 10 for c in cards]
 total = sum(heights) + GAP * 3
 assert y + total <= FOOT_TOP, f"cards overflow: {y+total} > {FOOT_TOP}"
 
@@ -80,7 +80,7 @@ for i, (color, tag, head, body, kicker) in enumerate(cards):
     yy += 30
     for ln in wrap(body, 88):
         d.text((x0, yy), ln, font=F_BODY, fill=BODY_C)
-        yy += 23
+        yy += 22
     yy += 2
     d.text((x0, yy), "\u25b8 " + kicker, font=F_KICK, fill=color)
     assert yy + 22 <= y + ch
@@ -90,16 +90,17 @@ for i, (color, tag, head, body, kicker) in enumerate(cards):
 fy = FOOT_TOP
 d.rectangle([M, fy, W - M, H - 36], fill=(30, 33, 42))
 d.rectangle([M, fy, M + 5, H - 36], fill=AMBER)
-d.text((M + 20, fy + 10), "ALSO ON THE WIRE", font=F_FOOTB, fill=AMBER)
-ff = fy + 34
+d.text((M + 20, fy + 8), "ALSO ON THE WIRE", font=F_FOOTB, fill=AMBER)
+ff = fy + 32
 foot = [
     "\u2022 Qatar protested Iran summoning its diplomat over a Doha\u2013Berlin statement",
     "\u2022 Libya and Italy condemned the strike on the Russian-linked ship in Libyan waters",
     "\u2022 Moscow: Estonia's NATO moves are 'on the verge of unleashing open war'",
+    "\u2022 US Treasury widened sanctions on Iran's shadow-banking networks",
 ]
 for ln in foot:
     d.text((M + 20, ff), ln, font=F_FOOT, fill=DIM)
-    ff += 21
+    ff += 19
 
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry.png")
 img.save(out, "PNG", optimize=True)
